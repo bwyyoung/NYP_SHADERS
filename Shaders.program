@@ -1,0 +1,85 @@
+vertex_program hdr_quad hlsl
+{
+	source hdr_quad.hlsl
+	entry_point vs_main
+	target vs_2_0
+}
+vertex_program mb_quad hlsl
+{
+	source mb_quad.hlsl
+	entry_point vs_main
+	target vs_2_0
+}
+vertex_program dof_quad hlsl
+{
+	source dof_quad.hlsl
+	entry_point vs_main
+	target vs_2_0
+}
+fragment_program mb_combine hlsl
+{
+	source mb_combine.hlsl
+	entry_point ps_main
+    target ps_2_b
+}
+fragment_program mb_copy hlsl
+{
+	source mb_copy.hlsl
+	entry_point ps_main
+    target ps_2_b
+}
+fragment_program mb_finalpass hlsl
+{
+	source mb_finalpass.hlsl
+	entry_point ps_main
+    target ps_2_b
+}
+fragment_program dof_finalpass hlsl
+{
+	source dof_finalpass.hlsl
+	entry_point ps_main
+    target ps_2_b
+}
+fragment_program dof_blur0 hlsl
+{
+	source dof_blur0.hlsl
+	entry_point ps_main
+    target ps_2_b
+}
+fragment_program dof_blur1 hlsl
+{
+	source dof_blur1.hlsl
+	entry_point ps_main
+    target ps_2_b
+}
+fragment_program hdr_luminance hlsl
+{
+	source hdr_luminance.hlsl
+	entry_point ps_main
+    target ps_2_b
+}
+
+fragment_program hdr_blur hlsl
+{
+	source hdr_blur.hlsl
+	entry_point ps_main
+    target ps_2_b
+}
+fragment_program hdr_downsample hlsl
+{
+	source hdr_downsample.hlsl
+	entry_point ps_main
+    target ps_2_b
+}
+fragment_program hdr_brightpass hlsl
+{
+	source hdr_brightpass.hlsl
+	entry_point ps_main
+    target ps_2_b
+}
+fragment_program hdr_finalpass hlsl
+{
+	source hdr_finalpass.hlsl
+	entry_point ps_main
+    target ps_2_b
+}

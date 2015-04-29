@@ -1,0 +1,73 @@
+material MB/Combine
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+			
+			}
+			texture_unit
+			{
+			
+			}
+			vertex_program_ref mb_quad
+			{
+				param_named_auto inverseviewwidth inverse_viewport_width
+				param_named_auto inverseviewheight inverse_viewport_height
+			}
+			fragment_program_ref mb_combine
+			{
+				param_named blur float 0.1
+			}
+		}			
+	}
+
+}
+
+material MB/Sum
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+			
+			}
+			vertex_program_ref mb_quad
+			{
+				param_named_auto inverseviewwidth inverse_viewport_width
+				param_named_auto inverseviewheight inverse_viewport_height
+			}
+			fragment_program_ref mb_copy
+			{
+			
+			}
+		}
+	}
+}
+
+material MB/FinalPass
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+			
+			}
+			vertex_program_ref mb_quad
+			{
+				param_named_auto inverseviewwidth inverse_viewport_width
+				param_named_auto inverseviewheight inverse_viewport_height
+			}
+			fragment_program_ref mb_finalpass
+			{
+			
+			}
+		}
+	}
+}

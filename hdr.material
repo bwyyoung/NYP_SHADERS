@@ -1,0 +1,134 @@
+material HDR/Luminance
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+			
+			}
+			vertex_program_ref hdr_quad
+			{
+				param_named_auto inverseviewwidth inverse_viewport_width
+				param_named_auto inverseviewheight inverse_viewport_height
+			}
+			fragment_program_ref hdr_luminance
+			{
+				param_named viewwidth float 99 
+				param_named viewheight float 95
+				param_named LUMINENCE_FACTOR float4 0.27 0.67 0.06 0.0
+			}
+		}
+	}
+}
+material HDR/Downsample
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+			
+			}
+			vertex_program_ref hdr_quad
+			{
+				param_named_auto inverseviewwidth inverse_viewport_width
+				param_named_auto inverseviewheight inverse_viewport_height
+			}
+			fragment_program_ref hdr_downsample
+			{
+				param_named viewwidth float 0
+				param_named viewheight float 0
+			}
+		}
+	}
+}
+material HDR/Brightpass
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+			
+			}
+			texture_unit
+			{
+			
+			}
+			vertex_program_ref hdr_quad
+			{
+				param_named_auto inverseviewwidth inverse_viewport_width
+				param_named_auto inverseviewheight inverse_viewport_height
+			}
+			fragment_program_ref hdr_brightpass
+			{
+				param_named viewwidth float 0
+				param_named viewheight float 0
+				param_named MIDDLE_GREY float 0.72
+				param_named FUDGE float 0.5
+				param_named L_WHITE float 0.5
+				param_named BRIGHT_LIMITER float4 0.72 0.72 0.72 0.0			
+			}
+		}
+	}
+}
+material HDR/Blur
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+			
+			}
+			vertex_program_ref hdr_quad
+			{
+				param_named_auto inverseviewwidth inverse_viewport_width
+				param_named_auto inverseviewheight inverse_viewport_height
+			}
+			fragment_program_ref hdr_blur
+			{
+				param_named blurx float 0
+				param_named blury float 0
+			}
+		}
+	}
+}
+material HDR/ToneMapping
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+			
+			}
+			texture_unit
+			{
+			
+			}
+			texture_unit
+			{
+			
+			}
+			vertex_program_ref hdr_quad
+			{
+				param_named_auto inverseviewwidth inverse_viewport_width
+				param_named_auto inverseviewheight inverse_viewport_height
+			}
+			fragment_program_ref hdr_finalpass
+			{
+				param_named MIDDLE_GREY float 0.72
+				param_named FUDGE float 0.5
+				param_named L_WHITE float 0.5
+			}
+		}
+	}
+}
+

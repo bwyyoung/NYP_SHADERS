@@ -1,0 +1,225 @@
+
+compositor HDR
+{
+	technique
+	{
+		texture Original target_width target_height pf_a8r8g8b8
+		texture Luminance 128 128 pf_a8r8g8b8
+		texture Luminance2 64 64 pf_a8r8g8b8
+		texture Luminance3 16 16 pf_a8r8g8b8
+		texture Luminance4 4 4 pf_a8r8g8b8
+		texture Luminance5 2 2 pf_a8r8g8b8
+		texture Luminance6 1 1 pf_a8r8g8b8
+		texture BlurX 400 300 pf_a8r8g8b8
+		texture BlurY 400 300 pf_a8r8g8b8
+		texture Brightpass target_width target_height pf_a8r8g8b8
+		texture Downsample 400 300 pf_a8r8g8b8 
+	
+		target Original
+		{
+			input previous
+		}
+		target Luminance
+		{
+			input none
+			pass render_quad
+			{
+				material HDR/Luminance
+				input 0 Original
+				identifier 994
+			}
+		}
+		target Luminance2
+		{
+			input none
+			pass render_quad
+			{
+				material HDR/Downsample
+				input 0 Luminance
+				identifier 993
+			}
+		}
+		target Luminance3
+		{
+			input none
+			pass render_quad
+			{
+				material HDR/Downsample
+				input 0 Luminance2
+				identifier 992
+			}
+		}
+		target Luminance4
+		{
+			input none
+			pass render_quad
+			{
+				material HDR/Downsample
+				input 0 Luminance3
+				identifier 991
+			}
+		}
+		target Luminance5
+		{
+			input none
+			pass render_quad
+			{
+				material HDR/Downsample
+				input 0 Luminance4
+				identifier 990
+			}
+		}
+		target Luminance6
+		{
+			input none
+			pass render_quad
+			{
+				material HDR/Downsample
+				input 0 Luminance5
+				identifier 889
+			}
+		}
+		target Brightpass
+		{
+			input none
+			pass render_quad
+			{
+				material HDR/Brightpass
+				input 0 Original
+				input 1 Luminance6
+				identifier 775
+			}
+		}
+		target Downsample
+		{
+			input none
+			pass render_quad
+			{
+				material HDR/Downsample
+				input 0 Brightpass
+				identifier 774
+			}
+		}
+		target BlurX
+		{
+			input none
+			pass render_quad
+			{
+				material HDR/Blur
+				input 0 Downsample
+				identifier 773
+			}
+		}
+		target BlurY
+		{
+			input none
+			pass render_quad
+			{
+				material HDR/Blur
+				input 0 BlurX
+				identifier 772
+			}
+		}
+		target_output
+		{
+			input none
+			pass render_quad
+			{
+				material HDR/ToneMapping
+				input 0 Original
+				input 1 BlurY
+				input 2 Luminance6
+			}
+		}
+	}
+}
+compositor MB
+{
+	technique
+	{
+		texture Original target_width target_height pf_a8r8g8b8
+		texture Combine target_width target_height pf_a8r8g8b8
+		texture Sum target_width target_height pf_a8r8g8b8
+		
+		target Original
+		{
+			input previous
+		}
+		target Combine
+		{
+			input none
+			pass render_quad
+			{
+				material MB/Combine
+				input 0 Original
+				input 1 Sum
+				identifier 10
+			}
+		}
+		target Sum
+		{
+			input none
+			pass render_quad
+			{
+				material MB/Sum
+				input 0 Combine
+				identifier 11
+			}
+		}
+		target_output
+		{
+			input none
+			pass render_quad
+			{
+				material MB/FinalPass
+				input 0 Sum
+				identifier 12
+			}
+		}
+	}
+}
+compositor DOF
+{
+	technique
+	{
+		texture Original target_width target_height pf_a8r8g8b8
+		texture Blur0 512 512 pf_a8r8g8b8
+		texture Blur1 512 512 pf_a8r8g8b8
+		
+		target Original
+		{
+			input previous
+		}
+		target Blur0
+		{
+			input none
+			pass render_quad
+			{
+				material DOF/Blur0
+				input 0 Original
+				identifier 20
+			}
+		}
+		target Blur1
+		{
+			input none
+			pass render_quad
+			{
+				material DOF/Blur1
+				input 0 Blur0
+				identifier 21
+			}
+		}
+		target_output
+		{
+			input none
+			pass render_quad
+			{
+				material DOF/FinalPass
+				input 0 Original
+				input 1 Blur1
+				identifier 22
+			}
+		}
+	}
+}

@@ -1,0 +1,71 @@
+material DOF/Blur0
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+			
+			}
+			vertex_program_ref dof_quad
+			{
+				
+			}
+			fragment_program_ref dof_blur0
+			{
+				param_named sampleDist0 float 0.02
+			}
+		}
+	}
+
+}
+
+material DOF/Blur1
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+			
+			}
+			vertex_program_ref dof_quad
+			{
+				
+			}	
+			fragment_program_ref dof_blur1
+			{
+				param_named sampleDist1 float 0.02
+			}
+		}
+	}
+}
+
+material DOF/FinalPass
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+			
+			}
+			texture_unit
+			{
+			
+			}
+			vertex_program_ref dof_quad
+			{
+				
+			}	
+			fragment_program_ref dof_finalpass
+			{
+				param_named focus float 0.4
+				param_named range float 0.8
+			}
+		}
+	}
+}
